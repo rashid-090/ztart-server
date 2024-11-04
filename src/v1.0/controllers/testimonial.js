@@ -15,8 +15,8 @@ const testimonial = async (req) => {
     let imagePath = "";
     if (req.file?.path) {
       await cloudinary.uploader
-        .upload(req.file.path)
-        .then((result) => (imagePath = result.url))
+        .upload(req.file.path, { secure: true })
+        .then((result) => (imagePath = result.secure_url))
         .catch((err) => {
           console.error("Error uploading to Cloudinary:", err);
           throw new Error("Image upload failed");
@@ -26,13 +26,17 @@ const testimonial = async (req) => {
     console.log("Request ", req.body);
 
     const payload = {
+
       slug: testimonial.slug,
       country: testimonial.country,
+      metaTitle: testimonial.metaTitle,
+      metaDescription: testimonial.metaDescription,
       about: testimonial.about,
       title: testimonial.title,
       description: testimonial.description,
       status: true,
       imageURL: imagePath,
+      imageAlt: testimonial.imageAlt,
       questions: JSON.parse(testimonial.questions),
       faqs: JSON.parse(testimonial.faqs),
     };
@@ -99,8 +103,8 @@ const updateTestimonials = async (req) => {
     // Check if a file is uploaded
     if (req?.file?.path) {
       await cloudinary.uploader
-        .upload(req.file.path)
-        .then((result) => (imagePath = result.url))
+        .upload(req.file.path, { secure: true })
+        .then((result) => (imagePath = result.secure_url))
         .catch((err) => {
           console.error("Error uploading to Cloudinary:", err);
           throw new Error("Image upload failed");
@@ -112,11 +116,14 @@ const updateTestimonials = async (req) => {
 
     // Prepare the payload for the database
     const payload = {
-      country:testimonial.country,
+      country: testimonial.country,
       subtitle: testimonial.subtitle,
       title: testimonial.title,
+      metaTitle: testimonial.metaTitle,
+      metaDescription: testimonial.metaDescription,
       description: testimonial.description,
       status: true,
+      imageAlt: testimonial.imageAlt,
       imageURL: imagePath, // Use the existing image URL if no new image is uploaded
       questions: testimonial.questions, // Include questions from the data
       faqs: testimonial.faqs, // Include FAQs from the data

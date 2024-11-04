@@ -14,14 +14,17 @@ const FAQ = async (req) => {
   try {
     let imagePath = "";
     await cloudinary.uploader
-      .upload(req?.file?.path)
-      .then((result) => (imagePath = result.url))
+      .upload(req?.file?.path, { secure: true })
+      .then((result) => (imagePath = result.secure_url))
       .catch((err) => console.log(err));
 
     const testimonial = req?.body;
     const payload = {
-      slug:testimonial.slug,
+      slug: testimonial.slug,
       subtitle: testimonial.subtitle,
+      metaDescription: testimonial.metaDescription,
+      metaTitle: testimonial.metaTitle,
+      imageAlt: testimonial.imageAlt,
       title: testimonial.title,
       description: testimonial.description,
       status: true,
@@ -86,8 +89,8 @@ const updateFaq = async (req) => {
     // Check if a file is uploaded
     if (req?.file?.path) {
       await cloudinary.uploader
-        .upload(req.file.path)
-        .then((result) => (imagePath = result.url))
+        .upload(req.file.path, { secure: true })
+        .then((result) => (imagePath = result.secure_url))
         .catch((err) => {
           console.error("Error uploading to Cloudinary:", err);
           throw new Error("Image upload failed");
@@ -101,6 +104,9 @@ const updateFaq = async (req) => {
     const payload = {
       subtitle: blogs.subtitle,
       title: blogs.title,
+      metaTitle: blogs.metaTitle,
+      metaDescription: blogs.metaDescription,
+      imageAlt: blogs.imageAlt,
       description: blogs.description,
       status: true,
       imageURL: imagePath || blogs.imageURL, // Use the existing image URL if no new image is uploaded

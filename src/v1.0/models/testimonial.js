@@ -32,6 +32,14 @@ module.exports = (mongoose, collectionName) => {
         type: String,
         required: false,
       },
+      metaTitle: {
+        type: String,
+        required: false,
+      },
+      metaDescription: {
+        type: String,
+        required: false,
+      },
       slug: {
         unique:true,
         type: String,
@@ -42,6 +50,11 @@ module.exports = (mongoose, collectionName) => {
         required: false, // Optional field
       },
       imageURL: {
+        type: String,
+        required: false,
+        default: '',
+      },
+      imageAlt: {
         type: String,
         required: false,
         default: '',

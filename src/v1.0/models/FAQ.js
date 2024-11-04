@@ -14,10 +14,10 @@ module.exports = (mongoose, collectionName) => {
   // Main schema definition
   const schema = mongoose.Schema(
     {
-      slug:{
-        type:String,
-        required:true,
-        unique:true,
+      slug: {
+        type: String,
+        required: true,
+        unique: true,
       },
       status: {
         type: Boolean,
@@ -29,6 +29,18 @@ module.exports = (mongoose, collectionName) => {
         required: false,
       },
       title: {
+        type: String,
+        required: false,
+      },
+      metaTitle: {
+        type: String,
+        required: false,
+      },
+      metaDescription: {
+        type: String,
+        required: false,
+      },
+      imageAlt: {
         type: String,
         required: false,
       },
