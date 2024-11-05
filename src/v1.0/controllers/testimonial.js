@@ -8,6 +8,7 @@ const {
   editTestimonial,
   getOneTestimonial,
   deleteOneTestimonial,
+  getAllVisaSlug,
 } = require("../services/internal/testimonial.service");
 const cloudinary = require("cloudinary").v2;
 const testimonial = async (req) => {
@@ -23,7 +24,6 @@ const testimonial = async (req) => {
         });
     }
     const testimonial = req?.body;
-    console.log("Request ", req.body);
 
     const payload = {
 
@@ -48,11 +48,30 @@ const testimonial = async (req) => {
       data: { ...data.toObject(), imagePath },
     };
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
 
     logger.error("something went wrong in testimonial:", error);
     return {
       statusCode: "500",
+      message: error.message,
+    };
+  }
+};
+
+const getVisaSlug = async (req) => {
+  try {
+    const testimonials = await getAllVisaSlug();
+    if (testimonials)
+      return {
+        message: messages?.success,
+        data: testimonials,
+      };
+  } catch (error) {
+    console.log(error);
+
+    logger.error("something went wrong in getTestimonials:", error);
+    return {
+      statusCode: 500,
       message: messages?.internalServerError,
     };
   }
@@ -169,4 +188,5 @@ module.exports = {
   updateTestimonials,
   OneTestimonial,
   deleteTestimonial,
+  getVisaSlug
 };

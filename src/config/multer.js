@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'testimonials', // Folder in Cloudinary where images will be stored
     allowed_formats: ['jpeg', 'jpg', 'png'], // Limit file types
-    public_id: (req, file) => Date.now() + '-' + file.originalname // File name convention
+    public_id: (req, file) => Date.now() + '-' + file.originalname  // File name convention
   }
 });
 

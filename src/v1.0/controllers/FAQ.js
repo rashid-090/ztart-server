@@ -7,6 +7,7 @@ const {
   editFaqs,
   getOneFaq,
   deleteOneFaq,
+  getAllBlogSlug,
 } = require("../services/internal/FAQ.service");
 const cloudinary = require("cloudinary").v2;
 
@@ -46,6 +47,25 @@ const FAQ = async (req) => {
     };
   }
 };
+
+
+const getBlogSlug = async (req) => {
+  try {
+    const FAQs = await getAllBlogSlug();
+    if (FAQs)
+      return {
+        message: messages?.success,
+        data: FAQs,
+      };
+  } catch (error) {
+    logger.error("something went wrong in getFaqs:", error);
+    return {
+      statusCode: http.statusCode.INTERNAL_SERVER_ERROR,
+      message: messages?.internalServerError,
+    };
+  }
+};
+
 
 const getFaqs = async (req) => {
   try {
@@ -125,7 +145,7 @@ const updateFaq = async (req) => {
     logger.error("Something went wrong in updateTestimonials:", error);
     return {
       statusCode: http.statusCode.INTERNAL_SERVER_ERROR,
-      message: messages?.internalServerError,
+      message: error.message,
     };
   }
 };
@@ -152,4 +172,5 @@ module.exports = {
   oneFaq,
   updateFaq,
   deleteFaq,
+  getBlogSlug
 };

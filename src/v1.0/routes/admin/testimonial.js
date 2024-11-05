@@ -6,28 +6,35 @@ const { multerSingleFile } = require("../../services/external/file");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-// cloudinary.config({
-//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-//   api_key: process.env.CLOUDINARY_API_KEY,
-//   api_secret: process.env.CLOUDINARY_API_SECRET,
-// });
-// const storage = new CloudinaryStorage({
-//   cloudinary: cloudinary,
-//   params: {
-//     folder: "ss", // Specify the folder where the file will be stored in Cloudinary
-//     format: async (req, file) => "jpg", // You can change the format if needed
-//     public_id: (req, file) => file.originalname.split(".")[0], // The public ID for the uploaded file
-//   },
-// });
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "testimonials", // Specify the folder where the file will be stored in Cloudinary
+    allowed_formats: ['jpeg', 'jpg', 'png'], // Limit file types
+    public_id: (req, file) => Date.now() + '-' + file.originalname // File name convention
+  },
+});
 
-// // Initialize multer with Cloudinary storage
-// const upload = multer({ storage: storage });
+// Initialize multer with Cloudinary storage
+const upload = multer({ storage: storage });
 
 // POST  : create testimonial
 router.post(
   "/create-testimonial",
-  multerSingleFile("file"),
+  upload.single("file"),
   makeCallback(TestimonailController.testimonial)
+);
+
+
+// GET  : Get all visa slug
+router.get(
+  "/get-visa-slug",
+  makeCallback(TestimonailController.getVisaSlug)
 );
 
 // GET  : Get all testimonials
@@ -45,7 +52,7 @@ router.get(
 // PUT  : update testimonials
 router.put(
   "/update-testimonial/:id",
-  multerSingleFile("file"),
+  upload.single("file"),
   makeCallback(TestimonailController.updateTestimonials)
 );
 

@@ -15,6 +15,22 @@ const createFaq = async (payload) => {
   }
 };
 
+
+const getAllBlogSlug = async () => {
+  try {
+    const data = await FAQ.find({},'slug');
+
+    if (data.length > 0) {
+      return data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    logger.error("something went wrong in getAllFaqs:", error);
+    throw error;
+  }
+};
+
 const getAllFaqs = async () => {
   try {
     const data = await FAQ.find({});
@@ -70,4 +86,5 @@ module.exports = {
   editFaqs,
   getOneFaq,
   deleteOneFaq,
+  getAllBlogSlug
 };

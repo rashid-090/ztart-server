@@ -32,11 +32,25 @@ const getAllTestimonials = async () => {
   }
 };
 
+const getAllVisaSlug = async () => {
+  try {
+    const data = await Testimonial.find({}, 'slug');
+    if (data.length > 0) {
+      return data;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    logger.error("something went wrong in getAllSlugs:", error);
+    throw error;
+  }
+};
+
 const editTestimonial = async (slug, body) => {
   try {
     const data = await Testimonial.updateOne({ slug: slug }, { $set: body });
-    console.log("From edit backend",body);
-    
+    console.log("From edit backend", body);
+
     return data;
   } catch (error) {
     logger.error("something went wrong in editTestimonial:", error);
@@ -74,4 +88,5 @@ module.exports = {
   editTestimonial,
   getOneTestimonial,
   deleteOneTestimonial,
+  getAllVisaSlug
 };
