@@ -21,9 +21,7 @@ app.use(helmet.hsts({
   preload: true  // allows site to be preloaded by browsers
 }));
 
-app.use((req, res) => {
-  res.status(400).send('Page not found')
-})
+
 
 app.use(express.json({ limit: config?.bodyLimit ?? "" }));
 app.use(express.urlencoded({ extended: false }));
@@ -42,6 +40,10 @@ app.use("/api", routes);
 app.use((_, res, next) => {
   next(new NotFoundException());
 });
+
+app.use((req, res) => {
+  res.status(400).send('Page not found')
+})
 
 // centralized error handler
 app.use(exceptionConverter);
