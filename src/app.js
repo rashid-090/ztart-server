@@ -39,6 +39,10 @@ app.use((_, res, next) => {
     next(new NotFoundException());
 });
 
+app.use((req, res) => {
+  res.status(400).send('Page not found')
+})
+
 // centralized error handler
 app.use(exceptionConverter);
 app.use(exceptionHandler);
