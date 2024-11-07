@@ -15,6 +15,11 @@ const { NotFoundException } = require("./utils/customExceptions");
 
 const app = express();
 // parse application/json
+app.use(helmet.hsts({
+    maxAge: 31536000,  // 1 year in seconds
+    includeSubDomains: true,  // apply to all subdomains as well
+    preload: true  // allows site to be preloaded by browsers
+  }));
 
 app.use(express.json({ limit: config?.bodyLimit ?? "" }));
 app.use(express.urlencoded({ extended: false }));

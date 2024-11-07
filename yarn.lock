@@ -968,7 +968,7 @@ hasown@^2.0.0:
   dependencies:
     function-bind "^1.1.2"
 
-helmet@^5.0.2:
+helmet@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npmjs.org/helmet/-/helmet-5.1.1.tgz"
   integrity sha512-/yX0oVZBggA9cLJh8aw3PPCfedBnbd7J2aowjzsaWwZh7/UFY0nccn/aHAggIgWUFfnykX8GKd3a1pSbrmlcVQ==
