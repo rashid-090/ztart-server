@@ -17,7 +17,7 @@ cloudinary.config({
     cloudinary: cloudinary,
     params: {
       folder: "blogs", // Specify the folder where the file will be stored in Cloudinary
-      allowed_formats: ['jpeg', 'jpg', 'png'], // Limit file types
+      allowed_formats: ['jpeg', 'jpg', 'png', 'webp'], // Limit file types
       public_id: (req, file) => Date.now() + '-' + file.originalname // File name convention
     },
   });
