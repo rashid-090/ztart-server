@@ -4,7 +4,6 @@ const logger = require("../../../utils/logger"); // Ensure logger is required as
 const createTestimonial = async (body) => {
   try {
     const data = await Testimonial.create(body);
-
     if (data._id) {
       return data;
     } else {
@@ -49,7 +48,6 @@ const getAllVisaSlug = async () => {
 const editTestimonial = async (slug, body) => {
   try {
     const data = await Testimonial.updateOne({ slug: slug }, { $set: body });
-    console.log("From edit backend", body);
 
     return data;
   } catch (error) {
