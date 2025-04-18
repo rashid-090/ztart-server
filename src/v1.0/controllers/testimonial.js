@@ -12,7 +12,9 @@ const {
 } = require("../services/internal/testimonial.service");
 const cloudinary = require("cloudinary").v2;
 const testimonial = async (req) => {
-  try {
+    try {
+      
+
     let imagePath = "";
     if (req.file?.path) {
       await cloudinary.uploader
@@ -31,6 +33,7 @@ const testimonial = async (req) => {
       country: testimonial.country,
       metaTitle: testimonial.metaTitle,
       metaDescription: testimonial.metaDescription,
+      metaKeywords: testimonial.metaKeywords,
       about: testimonial.about,
       title: testimonial.title,
       description: testimonial.description,
@@ -40,6 +43,9 @@ const testimonial = async (req) => {
       questions: JSON.parse(testimonial.questions),
       faqs: JSON.parse(testimonial.faqs),
     };
+
+
+    console.log("payload", payload);
 
     const data = await createTestimonial(payload);
 
@@ -140,6 +146,7 @@ const updateTestimonials = async (req) => {
       title: testimonial.title,
       metaTitle: testimonial.metaTitle,
       metaDescription: testimonial.metaDescription,
+      metaKeywords: testimonial.metaKeywords,
       description: testimonial.description,
       status: true,
       imageAlt: testimonial.imageAlt,

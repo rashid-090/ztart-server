@@ -40,6 +40,10 @@ module.exports = (mongoose, collectionName) => {
         type: String,
         required: false,
       },
+      metaKeywords: {
+        type: String,
+        required: false,
+      },
       slug: {
         unique:true,
         type: String,

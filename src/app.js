@@ -12,6 +12,7 @@ const database = require("./utils/database");
 const routes = require("./routes");
 const { exceptionConverter, exceptionHandler } = require("./utils/exception");
 const { NotFoundException } = require("./utils/customExceptions");
+const morgan = require("morgan");
 
 const app = express();
 // parse application/json
@@ -21,7 +22,7 @@ app.use(helmet.hsts({
   preload: true  // allows site to be preloaded by browsers
 }));
 
-
+app.use(morgan('dev'));
 
 app.use(express.json({ limit: config?.bodyLimit ?? "" }));
 app.use(express.urlencoded({ extended: false }));
