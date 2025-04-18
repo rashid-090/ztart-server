@@ -29,7 +29,7 @@ const upload = multer({ storage: storage });
 router.post(
   "/create-testimonial",
   upload.single("file"),
-  (TestimonailController.testimonial)
+  makeCallback(TestimonailController.testimonial)
 );
 
 
